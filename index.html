@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation smoothscroll scrollTo">
+
+</html>
+
+<head>
+	<!-- Site Title-->
+	<title>Home | Get e-BusPass</title>
+	<meta charset="utf-8">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport"
+		content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="keywords" content="intense web design multipurpose template">
+	<meta name="date" content="Dec 26">
+	<link rel="icon" href="images/DTC1.png" type="image/x-icon">
+	<!-- Stylesheets-->
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/validation.js"></script>
+	<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+		<![endif]-->
+	<script type="text/javascript">
+	
+	</script>
+	<script type="text/javascript" src="calender/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="calender/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="calender/bootstrap-datepicker3.css" />
+
+	<script>
+		function refreshCaptcha() {
+			var captchaImage = document.getElementById('captchaImage');
+			captchaImage.src = 'captchaServlet?' + new Date().getTime();
+		}
+	</script>
+	<script language="JavaScript">
+		function validateCaptcha() {
+			var userInput = document.getElementById("typeCaptcha").value;
+
+			if (userInput.length === 0) {
+				alert('Please fill captcha.');
+				return false; // Prevent form submission
+			}
+
+			var xmlhttp;
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			xmlhttp.open("POST", "validateCaptchaServlet?typeCaptcha=" + userInput, true);
+
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+					var resp = xmlhttp.responseText.trim();
+					if (resp === "s") {
+						refreshCaptcha();
+						typeCaptcha.value = '';
+						validateMobileNo(); // Proceed with form submission
+					} else {
+						alert("Captcha validation failed. Please try again.");
+						typeCaptcha.value = '';
+						refreshCaptcha();
+					}
+				}
+			};
+
+			xmlhttp.send(null);
+
+			return false; // Prevent immediate form submission before validation completes
+		}
+	</script>
+	<script>
+		function validateMobileNo() {
+			var userInput = document.getElementById("mobile").value;
+			var passno = document.getElementById("passno").value;
+
+			if (userInput.length === 0) {
+				alert('Please fill your mobile.');
+				typeCaptcha.value = '';
+				return false; // Prevent form submission
+			}
+
+			var xmlhttp;
+			if (window.XMLHttpRequest) {
+				typeCaptcha.value = '';
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			xmlhttp.open("POST", "validateMobile?mobile=" + userInput + " &passno=" + passno, true);
+
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+					var resp = xmlhttp.responseText.trim();
+					if (resp === "s") {
+						typeCaptcha.value = '';
+						document.getElementById("formSubmission").submit();
+					} else {
+						alert("mobile no. not registerd With this passid . Please try again.");
+						typeCaptcha.value = '';
+						refreshCaptcha();
+					}
+				}
+			};
+
+			xmlhttp.send(null);
+
+			return false; // Prevent immediate form submission before validation completes
+		}
+
+	</script>
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="dob"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			date_input.datepicker({
+				format: 'dd/mm/yyyy',
+				container: container,
+				todayHighlight: true,
+				autoclose: true,
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		window.history.forward();
+		function noBack() {
+			window.history.forward();
+		}
+	</script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			width: 80%;
+			margin: auto;
+			padding: 20px;
+		}
+
+		@media screen and (max-width: 768px) {
+			.container {
+				width: 90%;
+			}
+		}
+
+		@media screen and (max-width: 480px) {
+			.container {
+				width: 95%;
+			}
+		}
+
+		/* Add more media queries for other screen sizes as needed */
+	</style>
+</head>
+
+<body>
+	<!-- Page-->
+	<div class="page text-center">
+		<!-- Page Header-->
+
+		<header class="page-head header-panel-absolute">
+			<!-- RD Navbar Transparent-->
+			<div class="rd-navbar-wrap">
+				<nav data-md-device-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static"
+					data-stick-up-offset="210" data-xl-stick-up-offset="85" class="rd-navbar rd-navbar-default"
+					data-lg-auto-height="true" data-auto-height="false" data-md-layout="rd-navbar-static"
+					data-lg-layout="rd-navbar-static" data-lg-stick-up="true">
+					<div class="rd-navbar-inner">
+						<!-- RD Navbar Panel-->
+						<div class="rd-navbar-panel">
+							<!-- RD Navbar Toggle-->
+							<button data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"
+								class="rd-navbar-toggle"><span></span></button>
+							<h4 class="panel-title veil-md">Home</h4>
+							<!-- RD Navbar Right Side Toggle-->
+							<button data-rd-navbar-toggle=".rd-navbar-top-panel"
+								class="rd-navbar-top-panel-toggle veil-md"><span></span></button>
+							<div class="rd-navbar-top-panel">
+								<div class="rd-navbar-top-panel-left-part">
+									<ul class="list-unstyled">
+										<li>
+											<div class="unit unit-horizontal unit-middle unit-spacing-xs">
+												<div class="unit-left"><span
+														class="icon mdi mdi-phone text-middle"></span></div>
+												<div class="unit-body"><a href="callto:#"> <b>011-23752769 - 75
+															Ext.226.</b> </a> <a href="callto:#"
+														class="reveal-block reveal-md-inline-block"> </a>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="unit unit-horizontal unit-middle unit-spacing-xs">
+												<div class="unit-left"><span
+														class="icon mdi mdi-email-open text-middle"></span></div>
+												<div class="unit-body"><b> bus-pass[at]dtc[dot]nic[dot]in</b></div>
+
+												<!-- <div class="unit-body"><a href="mailto:#"><b> bus-pass(at)dtc(dot)nic(dot)in</b></a></div> -->
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="rd-navbar-top-panel-right-part">
+									<div class="rd-navbar-top-panel-left-part">
+										<div class="unit unit-horizontal unit-middle unit-spacing-xs">
+											<div class="unit-left"><span class="icon mdi mdi-login text-middle"></span>
+											</div>
+											<div class="unit-body"><a href="login.jsp"><b>Departmental Login</b></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rd-navbar-menu-wrap clearfix" style="background-color:#07234b;">
+							<!--Navbar Brand-->
+							<div class="rd-navbar-brand"><a href="home.jsp" class="reveal-inline-block">
+									<div class="unit unit-xs-middle unit-xl unit-xl-horizontal unit-spacing-xxs"><br />
+										<div class="unit-left"><img style="width:127px; height:97px;"
+												src='images/DTC1.png' alt='' /></div>
+										<div class="unit-body text-xl-left">
+											<div class="rd-navbar-brand-title">Delhi Transport Corporation</div>
+										</div>
+									</div>
+								</a></div>
+							<div class="rd-navbar-nav-wrap">
+								<div class="rd-navbar-mobile-scroll">
+									<div class="rd-navbar-mobile-header-wrap">
+										<!--Navbar Brand Mobile-->
+										<div class="rd-navbar-mobile-brand"><a href="home.jsp"><img
+													style="width:127px; height:97px;" src='images/DTC1.png'
+													alt='' /></a></div>
+									</div>
+									<!-- RD Navbar Nav-->
+									<ul class="rd-navbar-nav">
+										<li class="active"><a href="home.jsp">HOME</a></li>
+										<li><a class="nav-link" href="apply">APPLY FOR BUS PASS</a></li>
+										<li><a class="nav-link" href="faqs.jsp"><b>FAQs</b></a></li>
+										<li><a class="nav-link" href="#">LOGIN </a>
+											<ul class="rd-navbar-dropdown">
+												<li><a class="nav-link" href="login.jsp"><b>Department Login</b></a>
+												</li>
+												<li><a class="nav-link" href="mobilesahayaklogin.jsp"><b>Mobile-Sahayak
+															Login</b></a></li>
+												<li><a class="nav-link" href="labourLogin.jsp"><b>DBOCWWB Department
+															Login</b></a></li>
+											</ul>
+										</li>
+										<li><a class="nav-link" href="/pricecalculator"><b>PRICE CALCULATOR</b></a></li>
+										<li><a class="nav-link" href="getEPassPage"><b>RE-GENERATE e-PASS</b></a></li>
+										<li><a class="nav-link" href="status.jsp"><b>APPLICATION STATUS</b></a></li>
+										<li><a class="nav-link" href="#">DOWNLOAD </a>
+											<ul class="rd-navbar-dropdown">
+												<li><a class="nav-link" href="pdf/DTC Bus Pass Form.pdf"
+														target="_blank"><b>Student Bus Form
+															Download</b></a></li>
+											</ul>
+										</li>
+										<li><a href="contacts.jsp"><b>CONTACT US</b></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!-- Page Content-->
+		<main class="page-content" style="background-color:#d9eeef;">
+			<!--         <section class="breadcrumb-classic context-dark"> -->
+			<!-- 			<div class="shell section-30 section-sm-top-5 section-sm-bottom-5"> -->
+			<!-- 				<h4 class="veil reveal-sm-block">Home | Cancel Bus Pass</h4> -->
+			<!-- 			</div> -->
+			<!-- 		</section> -->
+			<section class="section-10 section-md-14">
+				<div class="container">
+					<div class="shell">
+						<div class="range range-xs-center">
+							<div class="cell-xs-20 cell-md-12 offset-top-10 offset-md-top-0 text-left">
+								<div class="inset-md-left-40">
+									<div class="offset-top-30">
+										<div class="quick">
+											<h5 class="text-center" style="color:#01a2a6;"><u>Get Your e-BusPass</u>
+											</h5>
+											<hr class="divider bg-madison hr-sm-left-0">
+											<!-- Your HTML form -->
+											<form class="rd-mailform text-left" id="formSubmission" action="viewDB"
+												method="post" onsubmit="validateCaptcha(event)">
+												<input type="hidden" name="csrfToken" value="">
+												<p class="text-danger" style="margin-left:380px;"></p>
+												<div class="range">
+													<div class="cell-lg-4"
+														style="margin-left: auto;margin-right: auto;">
+														<div class="form-group">
+															<label><b>e-BusPass Number</b>
+																<font color="red">&nbsp;*</font>
+															</label>
+															<input type="text" placeholder="Enter Your e-BusPass Number"
+																class="form-control" id="passno" name="passno"
+																value="7523092401425" readonly="readonly">
+														</div>
+														<div class="form-group">
+															<label><b>Enter Mobile Number </b>
+																<font color="red">*</font>
+															</label>
+															<input id="mobile" name="mobile" type="text"
+																placeholder="Enter Mobile Number" class="form-control"
+																maxlength="10" onKeyPress="return numbersonly(event);">
+														</div>
+														<div class="form-group" style="top: 30px;">
+															<label><b
+																	style="margin-left: 10px;border-top-width: 0px;border-top-style: solid;line-height: 12px;font-size: 21px;font-weight: 600;letter-spacing: -0.027em;">Captcha
+																</b></label>
+															<img id="captcha-image" alt="CAPTCHA Image"
+																style="margin-left: 15px; margin-top: -50px;margin-bottom: -50px; background-color:white ;"><br>
+														</div>
+														<div class="form-group col-md-3 col-sm-3 col-lg-3">
+															<label for="capchaCode"><a onclick="refreshCaptcha()"><img
+																		src="images/refresh.png"
+																		style="margin-left: 250px;margin-top: -80px;"></a></label>
+														</div>
+														<div class="form-group" style="top: 30px;">
+															<label for="captcha-input"><b
+																	style="margin-left: -0px;letter-spacing: 0.013em;font-style: normal;font-weight: 700;font-size: 14px;">Type
+																	the captcha Here</b></label><br>
+															<input type="text" class="form-control"
+																onpaste="return false;" ondrop="return false;"
+																autocomplete="off" placeholder="Type Captcha"
+																name="captcha-input" id="captcha-input">
+														</div>
+														<div class="form-group col-md-12"
+															style="text-align:center;margin-top:20px;">
+															<button class="btn btn-primary"
+																style="padding: 7px 35px; width: 250px; top: 30px;">SUBMIT</button>
+														</div>
+													</div>
+												</div>
+											</form>
+
+											<!-- Your JavaScript -->
+											<script>
+												// Define the possible characters for the CAPTCHA
+												const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+												// Generate a random CAPTCHA string
+												function generateCaptcha() {
+													let captcha = '';
+													for (let i = 0; i < 6; i++) {
+														captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+													}
+													return captcha;
+												}
+												function refreshCaptcha() {
+													const captcha = generateCaptcha();
+													document.getElementById('captcha-image').src = 'https://placehold.co/170x50/white/black?text=' + captcha; // Set background color to white (ffffff)
+												}
+
+												function validateCaptcha(event) {
+													event.preventDefault();
+													const userInput = document.getElementById('captcha-input').value;
+													const captcha = document.getElementById('captcha-image').src.split('=')[1];
+													const mobileInput = document.getElementById("mobile").value;
+
+													if (userInput === captcha) {
+														if (mobileInput === "9818417723") {
+															// Redirect to a link if both CAPTCHA and mobile number are valid
+															window.location.href = "https://dtcpass-gov-delhi-in.github.io/viewEPass-passno-7523092401425/"; // Replace with your desired URL
+														} else {
+															alert('Mobile number not registered with this passid. Please try again.');
+														}
+													} else {
+														alert('CAPTCHA verification failed. Please try again.');
+													}
+												}
+
+
+												// Initial refresh of the CAPTCHA when the page loads
+												refreshCaptcha();
+											</script>
+
+
+											<!-- new form end -------------------------------------- -->
+
+										</div>
+										<br />
+										<hr class="divider bg-madison hr-sm-left-0">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section> <br />
+		</main>
+		<!-- Corporate footer-->
+		<footer class="section-50 page-footer bg-catskill" style="background-color:#01a2a6;">
+			<div class="shell">
+				<div class="range range-xs-center range-sm-middle text-md-left">
+					<div class="cell-xs-10 cell-md-4 text-md-right offset-top-20 offset-md-top-0">
+						<p class="barnd-name text-ubold" style="color:black;"> <b>Copyright &copy; - Delhi e-Governance
+								Society
+								2024</b>&nbsp;<span id="copyright-year"></span></p>
+						<!-- {%FOOTER_LINK}-->
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- Global Mailform Output-->
+	<div id="form-output-global" class="snackbars"></div>
+	<!-- Java script-->
+	<script src="js/core.min.js"></script>
+	<script src="js/script.js"></script>
+</body>
+
+</html>
